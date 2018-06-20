@@ -54,7 +54,6 @@ class Enemy {
         this.position = point;
         this.speed = speed;
         this.hitbox = [20, 20];
-        this.health = 40;
         this.size = [30, 30];
         // Temporary, will replace
         this.sprite = "images/enemy.png";
@@ -95,7 +94,6 @@ class Enemy {
         }
 
         if (this.position.y < 0) {
-
             this.position.y = 0; 
         }
     }
@@ -125,7 +123,6 @@ class Player {
         this.position = point;
         this.size = [30, 30];
         this.hitbox = [20, 20];
-        this.health = 50;
     }
 
     render() {
