@@ -29,7 +29,7 @@ var Engine = (function(){
     function reset(){
         game.player.position = new Point(250, 250);
         game.running = true;
-        init()
+        init();
 
     }
     
@@ -46,8 +46,22 @@ var Engine = (function(){
                    player.position.y + player.hitbox[0] > enemy.position.y
                 ){
                     game.running = false;
-                    alert("Sorry You Lost")
-                    reset()
+                    
+                    ctx.font="80px Georgia";
+
+                    ctx.fillText("TRY AGAIN!" + game.lives, 300, 300);
+
+                    if (!(game.lives - 1 < 0)){
+                        game.lives -= 1;
+                        reset();
+                    } else {
+                        alert("Sorry out of lives");
+                        return;
+                        //should redirect away
+                    }
+
+
+                
                 }
             }
         updateEntities(currentTime);     
@@ -80,6 +94,10 @@ var Engine = (function(){
                 }
             }
         }
+        ctx.font="20px Georgia";
+
+        ctx.fillText("Lives: " + game.lives, 25, 20);
+
         renderEntities()
     }
 

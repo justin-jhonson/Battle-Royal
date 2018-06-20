@@ -9,8 +9,10 @@ var Game = (function() {
     function init(){
         return {
             running: true,
-            allEnemies: [new Enemy(new Point(20,20), 30)],
+            allEnemies: [new Enemy(new Point(20,20), 30), new Enemy(new Point(300,20), 50),
+                         new Enemy(new Point(100,20), 10), new Enemy(new Point(800,20), 10)],
             player: new Player(new Point(250,250)),
+            lives:3,
             gameMap : [
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -61,7 +63,7 @@ class Enemy {
 
     randomMotion(){
         //TODO needs to be replaced with A* search
-        var directions = ['down', 'up', 'up', 'left', 'right'];
+        var directions = ['down', 'up', 'up', 'left', 'left', 'left','right'];
         var directionDecision = Math.floor(Math.random() * (directions.length));
         return directions[directionDecision];
     }
@@ -88,8 +90,8 @@ class Enemy {
             this.position.x = ctx.canvas.width - this.size[0]; 
         }
 
-        if (this.position.y > 350 - this.size[1]) {
-            this.position.y = 350 - this.size[1]; 
+        if (this.position.y > 330 - this.size[1]) {
+            this.position.y = 330 - this.size[1]; 
         }
 
         if (this.position.y < 0) {
@@ -120,7 +122,6 @@ class Player {
         }
 
         this.sprite = "images/player.png";
-        this.attackSprite = "images/enemyAttack.png";
         this.position = point;
         this.size = [30, 30];
         this.hitbox = [20, 20];
@@ -131,10 +132,6 @@ class Player {
         ctx.drawImage(resources.get(this.sprite), this.position.x, this.position.y);
     }
     
-    attack(){
-        ctx.drawImage(resources.get(this.attackSprite), this.position.x, this.position.y);
-    }
-
     update(){
         if (this.position.x < 0) {
             this.position.x = 0; 
@@ -144,8 +141,8 @@ class Player {
             this.position.x = ctx.canvas.width - this.size[0]; 
         }
 
-        if (this.position.y > 350 - this.size[1]) {
-            this.position.y = 350 - this.size[1]; 
+        if (this.position.y > 330 - this.size[1]) {
+            this.position.y = 330 - this.size[1]; 
         }
 
         if (this.position.y < 0) {
@@ -170,10 +167,6 @@ class Player {
             case 'down':
                 this.position.y += 20
                 break;
-            case 'enter':
-                this.attack()
-                break;
-
         }
     }    
 }
@@ -187,7 +180,6 @@ document.addEventListener('keyup', function(e) {
         38: 'up',
         39: 'right',
         40: 'down',
-        13: 'enter',
     };
     game.player.handleInput(allowedKeys[e.keyCode]);
 
