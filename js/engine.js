@@ -1,7 +1,7 @@
 var Engine = (function(){
 
     var canvas = document.getElementById('canvas'),
-    ctx = canvas.getContext('2d'), 
+    ctx = canvas.getContext('2d'),
     lastTime;
 
     canvas.width = 900;
@@ -12,7 +12,7 @@ var Engine = (function(){
         lastTime = Date.now();
         main();
     }
-    
+
     function main(){
         var now = Date.now(),
             currentTime = (now - lastTime) / 1000.0;
@@ -32,21 +32,21 @@ var Engine = (function(){
         init();
 
     }
-    
+
 
     function update(currentTime) {
-        function collisionCheck(){
+        function idontknowwhattocallthis(){
             player = game.player;
             for(i=0; i < game.allEnemies.length; i++){
-                
+
                 enemy = game.allEnemies[i];
-                if(player.position.x < enemy.position.x + enemy.hitbox[1] && 
+                if(player.position.x < enemy.position.x + enemy.hitbox[1] &&
                    player.position.x + player.hitbox[0] > enemy.position.x &&
                    player.position.y < enemy.position.y + enemy.hitbox[0] &&
                    player.position.y + player.hitbox[0] > enemy.position.y
                 ){
                     game.running = false;
-                    
+
                     ctx.font="80px Georgia";
 
                     ctx.fillText("TRY AGAIN!" + game.lives, 300, 300);
@@ -61,12 +61,12 @@ var Engine = (function(){
                     }
 
 
-                
+
                 }
             }
-        updateEntities(currentTime);     
+        updateThings(currentTime);
         }
-        
+
         collisionCheck();
 
     }
@@ -81,12 +81,12 @@ var Engine = (function(){
         RowLengths = gameMap[0].length,
         numRows = gameMap.length,
         numCols = RowLengths,
-        row, col;  
+        row, col;
 
 
         for(row=0; row < numRows; row++){
             for(col=0; col < numCols; col++){
-                
+
                 if(gameMap[row][col] == 1){
                     ctx.drawImage(resources.get(rowImages[0]), col*27, row*31);
                 } else {
@@ -98,17 +98,17 @@ var Engine = (function(){
 
         ctx.fillText("Lives: " + game.lives, 25, 20);
 
-        renderEntities()
+        renderThings()
     }
 
-    function updateEntities(currentTime){
+    function updateThings(currentTime){
         game.allEnemies.forEach(function(enemy){
             enemy.update(currentTime);
         });
         game.player.update();
     }
 
-    function renderEntities(){
+    function renderThings(){
         game.allEnemies.forEach(function(enemy){
             enemy.render();
         });
@@ -128,7 +128,7 @@ var Engine = (function(){
     ]);
 
     resources.onReady(init);
-    window.ctx = ctx;  
+    window.ctx = ctx;
 
 })();
 

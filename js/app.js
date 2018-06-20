@@ -55,13 +55,11 @@ class Enemy {
         this.speed = speed;
         this.hitbox = [20, 20];
         this.size = [30, 30];
-        // Temporary, will replace
         this.sprite = "images/enemy.png";
     }
 
 
     randomMotion(){
-        //TODO needs to be replaced with A* search
         var directions = ['down', 'up', 'up', 'left', 'left', 'left','right'];
         var directionDecision = Math.floor(Math.random() * (directions.length));
         return directions[directionDecision];
@@ -80,21 +78,21 @@ class Enemy {
             case 'down':
                 this.position.y += (this.speed * timediff)
         }
-        
+
         if (this.position.x < 0) {
-            this.position.x = 0; 
+            this.position.x = 0;
         }
 
         if (this.position.x > ctx.canvas.width - this.size[0]) {
-            this.position.x = ctx.canvas.width - this.size[0]; 
+            this.position.x = ctx.canvas.width - this.size[0];
         }
 
         if (this.position.y > 330 - this.size[1]) {
-            this.position.y = 330 - this.size[1]; 
+            this.position.y = 330 - this.size[1];
         }
 
         if (this.position.y < 0) {
-            this.position.y = 0; 
+            this.position.y = 0;
         }
     }
 
@@ -128,26 +126,26 @@ class Player {
     render() {
         ctx.drawImage(resources.get(this.sprite), this.position.x, this.position.y);
     }
-    
+
     update(){
         if (this.position.x < 0) {
-            this.position.x = 0; 
+            this.position.x = 0;
         }
 
         if (this.position.x > ctx.canvas.width - this.size[0]) {
-            this.position.x = ctx.canvas.width - this.size[0]; 
+            this.position.x = ctx.canvas.width - this.size[0];
         }
 
         if (this.position.y > 330 - this.size[1]) {
-            this.position.y = 330 - this.size[1]; 
+            this.position.y = 330 - this.size[1];
         }
 
         if (this.position.y < 0) {
 
-            this.position.y = 0; 
+            this.position.y = 0;
         }
 
-    }   
+    }
 
 
     handleInput(key){
@@ -165,7 +163,7 @@ class Player {
                 this.position.y += 20
                 break;
         }
-    }    
+    }
 }
 
 var game = Game.getInstance();
