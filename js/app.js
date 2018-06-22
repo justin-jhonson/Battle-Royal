@@ -60,16 +60,36 @@ class Enemy {
     }
 
 
-    randomMotion(){
+    pathFinding(){
         //TODO needs to be replaced with A* search
-        var directions = ['down', 'up', 'up', 'left', 'left', 'left','right'];
-        var directionDecision = Math.floor(Math.random() * (directions.length));
-        return directions[directionDecision];
+        var directions = ['down', 'up', 'left', 'right'];
+        console.log(game.player.position);
+        let playerPosition = game.player.position;
+        var position = this.position;
+
+        let horizontal_dist = Math.abs(playerPosition.x - position.x);
+        let vertical_dist = Math.abs(playerPosition.y - position.y)
+        if(horizontal_dist > vertical_dist){
+            if(playerPosition.x - position.x > 0){
+                return 'right';
+            } else {
+                return 'left';
+            }
+
+        } else {
+            if(playerPosition.y - position.y > 0){
+                return 'down';
+            } else {
+                return 'up';
+            }
+
+        }
+
     }
 
     update(timediff){
         //todo replace with map, and ASTAR
-        var direction = this.randomMotion();
+        var direction = this.pathFinding();
         switch(direction){
             case 'left':
                 this.position.x -= (this.speed * timediff)
@@ -80,7 +100,10 @@ class Enemy {
             case 'down':
                 this.position.y += (this.speed * timediff)
         }
-        
+        this.canWalkHere();
+    }
+
+    canWalkHere(){
         if (this.position.x < 0) {
             this.position.x = 0; 
         }
@@ -96,6 +119,7 @@ class Enemy {
         if (this.position.y < 0) {
             this.position.y = 0; 
         }
+
     }
 
     render() {
