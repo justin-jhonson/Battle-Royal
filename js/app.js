@@ -63,7 +63,6 @@ class Enemy {
     pathFinding(){
         //TODO needs to be replaced with A* search
         var directions = ['down', 'up', 'left', 'right'];
-        console.log(game.player.position);
         let playerPosition = game.player.position;
         var position = this.position;
 
