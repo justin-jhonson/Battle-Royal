@@ -91,14 +91,20 @@ class Enemy {
         var direction = this.pathFinding();
         switch(direction){
             case 'left':
-                this.position.x -= (this.speed * timediff)
+                this.position.x -= (this.speed * timediff);
+                break;
             case 'right':
-                this.position.x += (this.speed * timediff)
+                this.position.x += (this.speed * timediff);
+                break;
             case 'up':
-                this.position.y -= (this.speed * timediff)
+                this.position.y -= this.speed * timediff;
+                break;
             case 'down':
-                this.position.y += (this.speed * timediff)
+                this.position.y += (this.speed * timediff);
+                break;
+
         }
+        console.log(direction);
         this.canWalkHere();
     }
 
