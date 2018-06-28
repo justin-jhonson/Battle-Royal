@@ -27,7 +27,7 @@ var Engine = (function(){
     }
 
     function reset(){
-        game.player.position = new Point(250, 250);
+        game.player.position = {'x': 250, 'y': 250};
         game.running = true;
         init();
 
@@ -47,9 +47,6 @@ var Engine = (function(){
                 ){
                     game.running = false;
 
-                    ctx.font="80px Georgia";
-
-                    ctx.fillText("TRY AGAIN!" + game.lives, 300, 300);
 
                     if (!(game.lives - 1 < 0)){
                         game.lives -= 1;
@@ -67,7 +64,7 @@ var Engine = (function(){
         updateThings(currentTime);
         }
 
-        collisionCheck();
+        idontknowwhattocallthis();
 
     }
 

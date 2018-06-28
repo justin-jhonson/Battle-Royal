@@ -9,9 +9,9 @@ var Game = (function() {
     function init(){
         return {
             running: true,
-            allEnemies: [new Enemy(new Point(20,20), 30), new Enemy(new Point(300,20), 50),
-                         new Enemy(new Point(100,20), 10), new Enemy(new Point(800,20), 10)],
-            player: new Player(new Point(250,250)),
+            allEnemies: [new Enemy(20, 20, 30), new Enemy(300, 20, 50),
+                         new Enemy(100, 20, 10), new Enemy(800, 20, 10)],
+            player: new Player(250, 250),
             lives:3,
             gameMap : [
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -47,11 +47,8 @@ var Game = (function() {
 
 
 class Enemy {
-    constructor(point, speed){
-        if(!(point instanceof Point)){
-            throw "Point is not of class Point!";
-        }
-        this.position = point;
+    constructor(x, y, speed){
+        this.position = {'x': x, 'y': y};
         this.speed = speed;
         this.hitbox = [20, 20];
         this.size = [30, 30];
@@ -59,24 +56,49 @@ class Enemy {
     }
 
 
-    randomMotion(){
-        var directions = ['down', 'up', 'up', 'left', 'left', 'left','right'];
-        var directionDecision = Math.floor(Math.random() * (directions.length));
-        return directions[directionDecision];
+   pathFinding(){
+        //TODO needs to be replaced with A* search
+        var directions = ['down', 'up', 'left', 'right'];
+        let playerPosition = game.player.position;
+        var position = this.position;
+
+        let horizontal_dist = Math.abs(playerPosition.x - position.x);
+        let vertical_dist = Math.abs(playerPosition.y - position.y)
+        if(horizontal_dist > vertical_dist){
+            if(playerPosition.x - position.x > 0){
+                return 'right';
+            } else {
+                return 'left';
+            }
+
+        } else {
+            if(playerPosition.y - position.y > 0){
+                return 'down';
+            } else {
+                return 'up';
+            }
+
+        }
+
     }
 
     update(timediff){
         //todo replace with map, and ASTAR
-        var direction = this.randomMotion();
+        var direction = this.pathFinding();
         switch(direction){
             case 'left':
-                this.position.x -= (this.speed * timediff)
+                this.position.x -= (this.speed * timediff);
+                break;
             case 'right':
-                this.position.x += (this.speed * timediff)
+                this.position.x += (this.speed * timediff);
+                break;
             case 'up':
                 this.position.y -= (this.speed * timediff)
+                break;
             case 'down':
-                this.position.y += (this.speed * timediff)
+                this.position.y += (this.speed * timediff);
+                break;
+
         }
 
         if (this.position.x < 0) {
@@ -102,23 +124,10 @@ class Enemy {
 
 }
 
-
-class Point {
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
-    }
-}
-
-
 class Player {
-    constructor(point){
-        if(!(point instanceof Point)){
-            throw "Point is not of class Point!";
-        }
-
+    constructor(x, y){
         this.sprite = "images/player.png";
-        this.position = point;
+        this.position = {'x': x, 'y': y};
         this.size = [30, 30];
         this.hitbox = [20, 20];
     }
@@ -141,7 +150,6 @@ class Player {
         }
 
         if (this.position.y < 0) {
-
             this.position.y = 0;
         }
 
