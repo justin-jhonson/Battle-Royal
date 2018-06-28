@@ -1,7 +1,7 @@
+/*
 
-
-
-var Game = (function() {
+*/
+;var Game = (function() {
 
     var instance;
 
@@ -45,7 +45,6 @@ var Game = (function() {
 })();
 
 
-
 class Enemy {
     constructor(x, y, speed){
         this.position = {'x': x, 'y': y};
@@ -54,7 +53,6 @@ class Enemy {
         this.size = [30, 30];
         this.sprite = "images/enemy.png";
     }
-
 
    pathFinding(){
         //TODO needs to be replaced with A* search
