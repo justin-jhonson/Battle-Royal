@@ -103,7 +103,6 @@ class Enemy {
                 this.position.y += (this.speed * timediff);
                 break;
         }
-        console.log(direction);
         this.canWalkHere();
     }
 
