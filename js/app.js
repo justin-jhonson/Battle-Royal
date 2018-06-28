@@ -102,7 +102,6 @@ class Enemy {
             case 'down':
                 this.position.y += (this.speed * timediff);
                 break;
-
         }
         console.log(direction);
         this.canWalkHere();
