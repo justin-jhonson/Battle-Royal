@@ -127,10 +127,13 @@ var Engine = (function(){
     resources.load([
         'images/grass.png',
         'images/water.png',
-        'images/player.png',
+        'images/playerLeft.png',
+        'images/playerRight.png',
         'images/enemy.png',
         'images/enemyAttack.png',
-        'images/playerAttack.png'
+        'images/playerAttackLeft.png',
+        'images/playerAttackRight.png'
+
 
     ]);
 
