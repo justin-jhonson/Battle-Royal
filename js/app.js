@@ -3,11 +3,24 @@
     var instance;
 
 
+
     function init(){
         return {
+            generateEnemies: function(level){
+                var enemyList = []
+                for(i=0; i < level+1; i++){
+                    var xCoord = Math.floor(Math.abs(Math.random() * ctx.canvas.width - 30)), 
+                        yCoord = Math.floor(Math.abs(Math.random() * ctx.canvas.height - 30)),
+                        speed = Math.floor(Math.abs(Math.random() * (80 + 40) - 40))
+                    ;
+                    enemyList.push(new Enemy(xCoord, yCoord, speed));
+                }
+                return enemyList;
+            },
+
             running: true,
-            allEnemies: [new Enemy(20, 20, 30), new Enemy(300, 20, 50),
-                         new Enemy(100, 20, 10), new Enemy(800, 20, 10)],
+            level: 1,
+            allEnemies: [],
             player: new Player(250, 250),
             lives:3,
             gameMap : [
@@ -37,9 +50,8 @@
 
 })();
 
-
-
 var game = Game.getInstance();
+game.allEnemies = game.generateEnemies(game.level);
 
 
 document.addEventListener('keyup', function(e) {

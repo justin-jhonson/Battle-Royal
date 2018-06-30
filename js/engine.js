@@ -9,6 +9,7 @@ var Engine = (function(){
 
 
     function init() {
+        game.allEnemies = game.generateEnemies(game.level);
         lastTime = Date.now();
         main();
     }
@@ -35,13 +36,14 @@ var Engine = (function(){
     
 
     function update(currentTime) {
-        if(game.allEnemies.length == 0){
-            ctx.font="80px Georgia";
-            ctx.fillText("You've Won!" + game.lives, 300, 300);
-        }
+        if (game.allEnemies.length == 0){
+            game.level += 1; 
+            game.allEnemies = game.generateEnemies(game.level);
 
+        }
         function collisionCheck(){
             player = game.player;
+            
             for(i=0; i < game.allEnemies.length; i++){
                 
                 enemy = game.allEnemies[i];
@@ -103,6 +105,7 @@ var Engine = (function(){
         ctx.font="20px Georgia";
 
         ctx.fillText("Lives: " + game.lives, 25, 20);
+        ctx.fillText("Level: " + game.level, 100, 20);
 
         renderEntities()
     }

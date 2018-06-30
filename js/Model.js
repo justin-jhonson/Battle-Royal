@@ -3,7 +3,6 @@
 
 
 */
-
 class Point {
     constructor(x,y){
         this.x = x;
@@ -47,7 +46,7 @@ class Player extends GameCharacter {
         super(x,y);
         this.sprite = "images/playerLeft.png";
         this.size = [32, 39];
-        this.hitbox = [30, 20];
+        this.hitbox = [20, 20];
         this.attacking = false;
         this.directionLeft = true;
     }
