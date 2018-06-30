@@ -56,7 +56,7 @@ class Enemy {
     }
 
 
-    seachVector(){
+    searchVector(){
         //TODO needs to be replaced with A* search
         let playerPosition = game.player.position;
         var position = this.position;
@@ -72,7 +72,7 @@ class Enemy {
 
     update(timediff){
         //todo replace with map, and ASTAR
-        var directionVector = this.seachVector();
+        var directionVector = this.searchVector();
         
         this.position.x += directionVector.x * (this.speed * timediff);
         this.position.y += directionVector.y * (this.speed * timediff);
