@@ -35,11 +35,11 @@ var Engine = (function(){
     
 
     function update(currentTime) {
-            if(game.allEnemies.length == 0){
-                ctx.font="80px Georgia";
-                ctx.fillText("You've Won!" + game.lives, 300, 300);
-                return;
-            }
+        if(game.allEnemies.length == 0){
+            ctx.font="80px Georgia";
+            ctx.fillText("You've Won!" + game.lives, 300, 300);
+            return;
+        }
 
         function collisionCheck(){
             player = game.player;
