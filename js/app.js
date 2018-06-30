@@ -45,7 +45,6 @@ var Game = (function() {
 })();
 
 
-
 class Enemy {
     constructor(x, y, speed){
         this.position = new Point(x, y);
@@ -57,53 +56,31 @@ class Enemy {
     }
 
 
-    pathFinding(){
+    seachVector(){
         //TODO needs to be replaced with A* search
-        var directions = ['down', 'up', 'left', 'right'];
         let playerPosition = game.player.position;
         var position = this.position;
-
-        let horizontal_dist = Math.abs(playerPosition.x - position.x);
-        let vertical_dist = Math.abs(playerPosition.y - position.y)
-        if(horizontal_dist > vertical_dist){
-            if(playerPosition.x - position.x > 0){
-                return 'right';
-            } else {
-                return 'left';
-            }
-
-        } else {
-            if(playerPosition.y - position.y > 0){
-                return 'down';
-            } else {
-                return 'up';
-            }
-
-        }
-
+        var vector = {'x': 0, 'y': 0}
+        
+        let horizontal_delta = playerPosition.x - position.x;
+        let vertical_delta = playerPosition.y - position.y
+        
+        vector.x = horizontal_delta > 0 ? 1 : -1;
+        vector.y = vertical_delta > 0 ? 1 : -1;
+        return vector;
     }
 
     update(timediff){
         //todo replace with map, and ASTAR
-        var direction = this.pathFinding();
-        switch(direction){
-            case 'left':
-                this.position.x -= (this.speed * timediff);
-                break;
-            case 'right':
-                this.position.x += (this.speed * timediff);
-                break;
-            case 'up':
-                this.position.y -= this.speed * timediff;
-                break;
-            case 'down':
-                this.position.y += (this.speed * timediff);
-                break;
-        }
-        this.canWalkHere();
+        var directionVector = this.seachVector();
+        
+        this.position.x += directionVector.x * (this.speed * timediff);
+        this.position.y += directionVector.y * (this.speed * timediff);
+
+        this.BoundaryCheck();
     }
 
-    canWalkHere(){
+    BoundaryCheck(){
         if (this.position.x < 0) {
             this.position.x = 0; 
         }
@@ -126,14 +103,6 @@ class Enemy {
         window.ctx.drawImage(resources.get(this.sprite), this.position.x, this.position.y);
     }
 
-}
-
-
-class Point {
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
-    }
 }
 
 
@@ -201,6 +170,14 @@ class Player {
                 break;
         }
     }    
+}
+
+
+class Point {
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+    }
 }
 
 var game = Game.getInstance();
