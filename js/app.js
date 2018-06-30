@@ -9,7 +9,7 @@ var Game = (function() {
     function init(){
         return {
             running: true,
-            allEnemies: [new Enemy(20,20, 30), new Enemy(300, 20, 50),
+            allEnemies: [new Enemy(20, 20, 30), new Enemy(300, 20, 50),
                          new Enemy(100, 20, 10), new Enemy(800, 20, 10)],
             player: new Player(250, 250),
             lives:3,
