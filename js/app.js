@@ -1,7 +1,4 @@
-
-
-
-var Game = (function() {
+;var Game = (function() {
 
     var instance;
 
