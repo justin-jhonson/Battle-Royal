@@ -9,9 +9,9 @@ var Game = (function() {
     function init(){
         return {
             running: true,
-            allEnemies: [new Enemy(new Point(20,20), 30), new Enemy(new Point(300,20), 50),
-                         new Enemy(new Point(100,20), 10), new Enemy(new Point(800,20), 10)],
-            player: new Player(new Point(250,250)),
+            allEnemies: [new Enemy(20,20, 30), new Enemy(300, 20, 50),
+                         new Enemy(100, 20, 10), new Enemy(800, 20, 10)],
+            player: new Player(250, 250),
             lives:3,
             gameMap : [
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -47,11 +47,8 @@ var Game = (function() {
 
 
 class Enemy {
-    constructor(point, speed){
-        if(!(point instanceof Point)){
-            throw "Point is not of class Point!";
-        }
-        this.position = point;
+    constructor(x, y, speed){
+        this.position = new Point(x, y);
         this.speed = speed;
         this.hitbox = [20, 20];
         this.size = [30, 30];
@@ -115,8 +112,8 @@ class Enemy {
             this.position.x = ctx.canvas.width - this.size[0]; 
         }
 
-        if (this.position.y > 330 - this.size[1]) {
-            this.position.y = 330 - this.size[1]; 
+        if (this.position.y > ctx.canvas.height - this.size[1]) {
+            this.position.y = ctx.canvas.height - this.size[1]; 
         }
 
         if (this.position.y < 0) {
@@ -141,15 +138,12 @@ class Point {
 
 
 class Player {
-    constructor(point){
-        if(!(point instanceof Point)){
-            throw "Point is not of class Point!";
-        }
-
+    constructor(x, y){
         this.sprite = "images/player.png";
-        this.position = point;
+        this.position = new Point(x, y);
         this.size = [30, 30];
         this.hitbox = [20, 20];
+        this.attacking = false;
     }
 
     render() {
@@ -170,12 +164,23 @@ class Player {
         }
 
         if (this.position.y < 0) {
-
             this.position.y = 0; 
         }
 
     }   
 
+    attack(){
+        var id = setInterval(function(){
+            if(this.attacking){
+                this.attacking = false;
+                this.sprite = 'images/player.png';
+                clearInterval(id);
+            } else {
+                this.sprite = 'images/playerAttack.png';
+                this.attacking = true;
+            }
+        }.bind(this), 200);
+    }
 
     handleInput(key){
         switch(key){
@@ -191,6 +196,9 @@ class Player {
             case 'down':
                 this.position.y += 20
                 break;
+            case 'space':
+                this.attack();
+                break;
         }
     }    
 }
@@ -200,6 +208,7 @@ var game = Game.getInstance();
 
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
+        32: 'space',
         37: 'left',
         38: 'up',
         39: 'right',

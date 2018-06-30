@@ -5,7 +5,7 @@ var Engine = (function(){
     lastTime;
 
     canvas.width = 900;
-    canvas.height = 380;
+    canvas.height = 340;
 
 
     function init() {
@@ -35,6 +35,12 @@ var Engine = (function(){
     
 
     function update(currentTime) {
+            if(game.allEnemies.length == 0){
+                ctx.font="80px Georgia";
+                ctx.fillText("You've Won!" + game.lives, 300, 300);
+                return;
+            }
+
         function collisionCheck(){
             player = game.player;
             for(i=0; i < game.allEnemies.length; i++){
@@ -45,23 +51,24 @@ var Engine = (function(){
                    player.position.y < enemy.position.y + enemy.hitbox[0] &&
                    player.position.y + player.hitbox[0] > enemy.position.y
                 ){
-                    game.running = false;
-                    
-                    ctx.font="80px Georgia";
-
-                    ctx.fillText("TRY AGAIN!" + game.lives, 300, 300);
-
-                    if (!(game.lives - 1 < 0)){
-                        game.lives -= 1;
-                        reset();
+                    if(player.attacking){
+                        game.allEnemies.splice(i, 1);
                     } else {
-                        alert("Sorry out of lives");
-                        return;
-                        //should redirect away
+                        game.running = false;
+                        
+                        ctx.font="80px Georgia";
+
+                        ctx.fillText("TRY AGAIN!" + game.lives, 300, 300);
+
+                        if (!(game.lives - 1 < 0)){
+                            game.lives -= 1;
+                            reset();
+                        } else {
+                            alert("Sorry out of lives");
+                            return;
+                            //should redirect away
+                        }
                     }
-
-
-                
                 }
             }
         updateEntities(currentTime);     
