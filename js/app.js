@@ -1,3 +1,5 @@
+var highscore = 0;
+
 ;var Game = (function() {
 
     var instance;
@@ -8,10 +10,10 @@
         return {
             generateEnemies: function(level){
                 var enemyList = []
-                for(i=0; i < level+1; i++){
+                for(i=0; i < level; i++){
                     var xCoord = Math.floor(Math.abs(Math.random() * ctx.canvas.width - 30)), 
                         yCoord = Math.floor(Math.abs(Math.random() * ctx.canvas.height - 30)),
-                        speed = Math.floor(Math.abs(Math.random() * (80 + 40) - 40))
+                        speed = Math.floor(Math.abs(Math.random() * 30 + (5*level)))
                     ;
                     enemyList.push(new Enemy(xCoord, yCoord, speed));
                 }

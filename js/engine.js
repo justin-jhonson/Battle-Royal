@@ -34,10 +34,11 @@ var Engine = (function(){
 
     }
     
-
     function update(currentTime) {
         if (game.allEnemies.length == 0){
             game.level += 1; 
+            highscore = Math.max(highscore, game.level);
+
             game.allEnemies = game.generateEnemies(game.level);
 
         }
@@ -65,6 +66,7 @@ var Engine = (function(){
                             game.lives -= 1;
                             reset();
                         } else {
+                            highscore = game.level;
                             alert("Sorry out of lives");
                             return;
                             //should redirect away
@@ -105,7 +107,8 @@ var Engine = (function(){
         ctx.font="20px Georgia";
 
         ctx.fillText("Lives: " + game.lives, 25, 20);
-        ctx.fillText("Level: " + game.level, 100, 20);
+        ctx.fillText("Level: " + game.level, 800, 20);
+        ctx.fillText("HighScore: " + highscore, 400, 20);
 
         renderEntities()
     }
