@@ -110,9 +110,19 @@ class Enemy extends GameCharacter {
         this.speed = speed;
         this.hitbox = [30, 30];
         this.size = [35, 25];
-        // Temporary, will replace
-        this.sprite = "images/enemy.png";
+        this.sprite = "images/enemyLeft.png";
     }
+
+    directionUpdate(){
+        if (this.directionLeft){
+            this.sprite = "images/enemyLeft.png";
+
+        } else {
+            this.sprite = "images/enemyRight.png";
+        }
+
+    }
+
 
 
     searchVector(){
@@ -135,7 +145,8 @@ class Enemy extends GameCharacter {
         
         this.position.x += directionVector.x * (this.speed * timediff);
         this.position.y += directionVector.y * (this.speed * timediff);
-
+        this.directionLeft = directionVector.x < 0 && directionVector.y != 0;
+        this.directionUpdate()
         this.BoundaryCheck();
     }
 

@@ -128,8 +128,8 @@ var Engine = (function(){
         'images/water.png',
         'images/playerLeft.png',
         'images/playerRight.png',
-        'images/enemy.png',
-        'images/enemyAttack.png',
+        'images/enemyLeft.png',
+        'images/enemyRight.png',
         'images/playerAttackLeft.png',
         'images/playerAttackRight.png'
 
